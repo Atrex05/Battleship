@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="client.js"></script>
+    <title>Bataille Navale Multijoueur</title>
+</head>
+<body>
+    <h1>Bataille Navale Multijoueur</h1>
+
+    <button id="connectButton">Se Connecter</button>
+
+    <div id="grid" class="grid"></div>
+    <div id="enemyGrid" class="enemyGrid"></div>
+    <script>
+        const connectButton = document.getElementById("connectButton");
+        const grid = document.getElementById("grid");
+        let socket;
+    
+        grid.addEventListener("click", (event) => {
+            const clickedCell = event.target;
+            const row = clickedCell.dataset.row;
+            const col = clickedCell.dataset.col;
+            
+            // Envoyez les coordonnées au serveur via WebSocket
+            const message = {
+                type: "place_ship",
+                x: parseInt(col),
+                y: parseInt(row)
+            };
+            socket.send(JSON.stringify(message));
+        });
+    
+        connectButton.addEventListener("click", () => {
+            socket = new WebSocket("ws://192.168.1.78:8080/ws");
+    
+            socket.onopen = () => {
+                console.log("Connexion établie !");
+            };
+    
+            socket.onmessage = (event) => {
+                console.log("Reçu :", event.data);
+            };
+    
+            socket.onclose = () => {
+                console.log("Connexion fermée !");
+            };
+        });
+    </script>
+</body>
+</html>

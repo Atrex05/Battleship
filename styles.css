@@ -1,0 +1,45 @@
+.grid {
+    display: grid;
+    width: 421px;
+    height: 420px;
+    grid-template-columns: repeat(10, 40px);
+    grid-template-rows: repeat(10, 40px);
+    gap: 2px;
+    border: 1px solid #000;
+    margin-top: 20px;
+}
+
+.enemyGrid {
+    display: grid;
+    width: 421px;
+    height: 420px;
+    grid-template-columns: repeat(10, 40px);
+    grid-template-rows: repeat(10, 40px);
+    gap: 2px;
+    border: 1px solid #ff0000;
+    margin-top: 20px;
+}
+
+.cell {
+    width: 40px;
+    height: 40px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    text-align: center;
+    line-height: 40px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.cell.ship-placed {
+    background-color: blue;
+    border-color: darkblue;
+}
+
+.cell.ship-hit {
+    background-color: red;
+}
+
+.cell.ship-missed {
+    background-color: yellow;
+}
