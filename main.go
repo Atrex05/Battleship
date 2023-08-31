@@ -193,6 +193,7 @@ func websocketHandler(w http.ResponseWriter, r *http.Request) {
 	handleConnection(conn)
 	defer func() {
 		connectedPlayers -= 1
+		delete(playerShips, conn)
 		conn.Close()
 	}()
 }
