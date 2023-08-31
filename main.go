@@ -56,11 +56,12 @@ func placeShip(conn *websocket.Conn, x, y int) bool {
 	}
 	playerShips[conn] = append(playerShips[conn], newShip)
 
-	fmt.Println(playerShips)
-	fmt.Println(len(playerShips))
+	//	fmt.Println(playerShips)
+	//	fmt.Println(len(playerShips))
 	return true
 }
 
+//Fonction vérifiant si le tir touche un bateau
 func targetShip(conn *websocket.Conn, x, y int) bool {
 	for key := range playerShips {
 		if key != conn {
@@ -73,7 +74,7 @@ func targetShip(conn *websocket.Conn, x, y int) bool {
 			}
 		}
 	}
-	return true
+	return false
 }
 
 //Fonction vérifiant si le jeu peut se lancer
@@ -145,7 +146,6 @@ func handleConnection(conn *websocket.Conn) {
 			case "target_ship":
 				x := int(message["x"].(float64))
 				y := int(message["y"].(float64))
-				fmt.Println("tried to play")
 				if targetShip(conn, x, y) {
 					response := map[string]string{
 						"type":    "target_confirmation",
